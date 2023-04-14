@@ -4,7 +4,11 @@
     "esModuleInterop": true,
     "module": "commonjs",
     "moduleResolution": "Node",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "rootDirs": [
+      "src",
+      "tests"
+    ],
   },
   "ts-node": {
     "esm": true
