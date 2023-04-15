@@ -9,8 +9,17 @@ async function createHistory(userId: number, bookId: number) {
     })
 }
 
+async function getHistory(userId: number) {
+    return await prisma.history.findMany({
+        where: {
+            userId
+        }
+    })
+}
+
 const historyRepositories = {
-    createHistory
+    createHistory,
+    getHistory
 }
 
 export default historyRepositories
