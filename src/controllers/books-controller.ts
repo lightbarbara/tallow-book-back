@@ -62,7 +62,7 @@ export async function deleteBook(req: Request, res: Response) {
 
         const book = booksServices.deleteBook(Number(bookId), user.id)
 
-        return res.status(httpStatus.NO_CONTENT).send({ message: book })
+        return res.status(httpStatus.NO_CONTENT).send(book)
 
     } catch (err) {
 

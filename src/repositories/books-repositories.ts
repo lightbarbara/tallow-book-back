@@ -45,12 +45,24 @@ async function deleteBook(bookId: number) {
     })
 }
 
+async function buyBook(bookId: number) {
+    return await prisma.books.update({
+        where: {
+            id: bookId
+        },
+        data: {
+            status: BookStatus.UNAVAILABLE
+        }
+    })
+}
+
 const booksRepositories = {
     createBook,
     getAllBooks,
     getMyBooks,
     findBookById,
-    deleteBook
+    deleteBook,
+    buyBook
 }
 
 export default booksRepositories

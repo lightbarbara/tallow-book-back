@@ -1,12 +1,12 @@
 import { Router } from "express";
 import { validateAuth } from "../middlewares/validateAuth";
-import { getCart, postCart } from "../controllers/carts-controller";
+import { deleteBookInCart, finishCart, getCart, postCart } from "../controllers/carts-controller";
 
 const cartsRouter = Router()
 
 cartsRouter.post('/cart', validateAuth, postCart)
 cartsRouter.get('/cart', validateAuth, getCart)
-cartsRouter.delete('/cart/book', validateAuth)
-cartsRouter.delete('/cart', validateAuth)
+cartsRouter.delete('/cart/book', validateAuth, deleteBookInCart)
+cartsRouter.post('/finish-cart', validateAuth, finishCart)
 
 export default cartsRouter
