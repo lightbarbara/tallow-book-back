@@ -20,9 +20,18 @@ async function signUp(name: string, email: string, avatar: string, password: str
     })
 }
 
+async function findUserById(id: number): Promise<users> {
+    return await prisma.users.findFirst({
+        where: {
+            id
+        }
+    })
+}
+
 const authRepositories = {
     findUserByEmail,
-    signUp
+    signUp,
+    findUserById
 }
 
 export default authRepositories

@@ -13,9 +13,9 @@ export async function signUp(req: Request, res: Response) {
     } catch (err) {
 
         if (err.name === 'registeredEmail') {
-            return res.sendStatus(httpStatus.CONFLICT)
+            return res.status(httpStatus.CONFLICT).send({ message: 'This email is already in use' })
         }
-        return res.status(httpStatus.BAD_REQUEST).send(err)
+        return res.status(httpStatus.BAD_REQUEST).send({ message: err })
     }
 
 }
@@ -31,9 +31,9 @@ export async function signIn(req: Request, res: Response) {
     } catch (err) {
 
         if (err.name === 'invalidUser') {
-            return res.sendStatus(httpStatus.UNAUTHORIZED)
+            return res.status(httpStatus.UNAUTHORIZED).send({ message: 'Invalid credentials' })
         }
-        return res.status(httpStatus.BAD_REQUEST).send(err) 
+        return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }
 }
