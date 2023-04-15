@@ -29,10 +29,28 @@ async function getMyBooks(userId: number) {
     })
 }
 
+async function findBookById(bookId: number) {
+    return await prisma.books.findFirst({
+        where: {
+            id: bookId
+        }
+    })
+}
+
+async function deleteBook(bookId: number) {
+    return await prisma.books.delete({
+        where: {
+            id: bookId
+        }
+    })
+}
+
 const booksRepositories = {
     createBook,
     getAllBooks,
-    getMyBooks
+    getMyBooks,
+    findBookById,
+    deleteBook
 }
 
 export default booksRepositories

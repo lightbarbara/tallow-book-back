@@ -52,3 +52,25 @@ export async function getMyBooks(req: Request, res: Response) {
 
     }
 }
+
+export async function deleteBook(req: Request, res: Response) {
+    const user = res.locals.user
+
+    const bookId = req.query.params
+
+    try {
+
+        const book = booksServices.deleteBook(Number(bookId), user.id)
+
+        return res.status(httpStatus.NO_CONTENT).send({ message: book })
+
+    } catch (err) {
+
+        if (err.name === 'deleteNotAllowed') {
+            return res.status(httpStatus.UNAUTHORIZED).send({ message: err })
+        }
+
+        return res.status(httpStatus.BAD_REQUEST).send({ message: err })
+
+    }
+}

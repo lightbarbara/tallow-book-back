@@ -20,10 +20,23 @@ async function getMyBooks(userId: number) {
     return yourBooks
 }
 
+async function deleteBook(bookId: number, userId: number) {
+    const bookToBeDeleted = await booksRepositories.findBookById(bookId)
+
+    if (bookToBeDeleted.userId !== userId) {
+        throw { name: 'deleteNotAllowed' }
+    }
+
+    const book = await booksRepositories.deleteBook(bookId)
+
+    return book
+}
+
 const booksServices = {
     createBook,
     getOtherBooks,
-    getMyBooks
+    getMyBooks,
+    deleteBook
 }
 
 export default booksServices
