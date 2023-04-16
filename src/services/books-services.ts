@@ -14,6 +14,14 @@ async function getOtherBooks(userId: number) {
     return otherBooks
 }
 
+async function getOtherBooksByName(userId: number, name: string) {
+    const books = await booksRepositories.getBooksByName(name)
+
+    const otherBooks = books.filter(b => b.userId !== userId)
+
+    return otherBooks
+}
+
 async function getMyBooks(userId: number) {
     const yourBooks = await booksRepositories.getMyBooks(userId)
 
@@ -39,6 +47,7 @@ async function deleteBook(bookId: number, userId: number) {
 const booksServices = {
     createBook,
     getOtherBooks,
+    getOtherBooksByName,
     getMyBooks,
     deleteBook
 }

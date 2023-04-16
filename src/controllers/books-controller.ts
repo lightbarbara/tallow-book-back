@@ -39,6 +39,25 @@ export async function getOtherBooks(req: Request, res: Response) {
     }
 }
 
+export async function getOtherBooksByName(req: Request, res: Response) {
+    const user = res.locals.user
+
+    const name = req.params.name
+    console.log(name)
+    try {
+
+        const books = await booksServices.getOtherBooksByName(user.id, name)
+
+        return res.status(httpStatus.OK).send(books)
+
+    } catch (err) {
+
+        console.log(err)
+        return res.status(httpStatus.BAD_REQUEST).send({ message: err })
+
+    }
+}
+
 export async function getMyBooks(req: Request, res: Response) {
     const user = res.locals.user
 

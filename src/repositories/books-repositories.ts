@@ -26,6 +26,17 @@ async function getAllBooks() {
     })
 }
 
+async function getBooksByName(name: string) {
+    return await prisma.books.findMany({
+        where: {
+            status: BookStatus.AVAILABLE,
+            name : {
+                contains: name
+            }
+        }
+    })
+}
+
 async function getMyBooks(userId: number) {
     return await prisma.books.findMany({
         where: {
@@ -75,6 +86,7 @@ async function takeOffBookFromCart(bookId: number) {
 const booksRepositories = {
     createBook,
     getAllBooks,
+    getBooksByName,
     getMyBooks,
     findBookById,
     deleteBook,
