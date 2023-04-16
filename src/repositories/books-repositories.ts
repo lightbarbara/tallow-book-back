@@ -50,7 +50,7 @@ async function deleteBook(bookId: number) {
     })
 }
 
-async function buyBook(bookId: number) {
+async function putBookOnCart(bookId: number) {
     return await prisma.books.update({
         where: {
             id: bookId
@@ -67,7 +67,7 @@ const booksRepositories = {
     getMyBooks,
     findBookById,
     deleteBook,
-    buyBook
+    putBookOnCart
 }
 
 export default booksRepositories

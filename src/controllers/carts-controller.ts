@@ -15,6 +15,7 @@ export async function postCart(req: Request, res: Response) {
 
     } catch (err) {
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }

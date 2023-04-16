@@ -1,4 +1,3 @@
-import { BookStatus } from "@prisma/client"
 import { prisma } from "../database/database"
 
 async function findBooksInCart(userId: number) {

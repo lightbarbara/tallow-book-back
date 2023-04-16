@@ -4,25 +4,23 @@ import historyRepositories from "../repositories/history-repositories"
 import booksRepositories from "../repositories/books-repositories"
 
 async function addToCart(userId: number, books: Array<books>) {
-    const booksInCart = await cartsRepositories.findBooksInCart(userId)
-
-    const hash = {}
-
-    for (let i = 0; i < booksInCart.length; i++) {
-        hash[booksInCart[i].bookId] = true
-    }
-
     for (let i = 0; i < books.length; i++) {
-        if (!hash[books[i].id]) {
-            await cartsRepositories.addToCart(userId, books[i].id)
-        }
+        await cartsRepositories.addToCart(userId, Number(books[i]))
+        await booksRepositories.putBookOnCart(Number(books[i]))
     }
 }
 
 async function getCart(userId: number) {
     const booksInCart = await cartsRepositories.findBooksInCart(userId)
 
-    return booksInCart
+    let books = []
+
+    for (let i=0; i<booksInCart.length; i++) {
+        const book = await booksRepositories.findBookById(booksInCart[i].bookId)
+        books.push(book)
+    }
+
+    return books
 }
 
 async function deleteBookInCart(bookId: number) {
@@ -36,9 +34,8 @@ async function finishCart(userId: number) {
 
     await cartsRepositories.deleteBooksByUser(userId)
 
-    for (let i=0; i<books.length; i++) {
-        await booksRepositories.buyBook(books[i].bookId)
-        await historyRepositories.createHistory(books[i].userId, books[i].bookId)
+    for (let i = 0; i < books.length; i++) {
+        await historyRepositories.createHistory(userId, books[i].bookId)
     }
 
     return books

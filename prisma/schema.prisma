@@ -33,24 +33,24 @@ model books {
     edition     Int
     price       Int
     status      BookStatus
-    user        users       @relation(fields: [userId], references: [id])
     userId      Int
+    user        users       @relation(fields: [userId], references: [id])
     booksCart   booksCart[]
     history     history[]
 }
 
 model booksCart {
     id     Int   @id @default(autoincrement())
-    user   users @relation(fields: [userId], references: [id])
     userId Int
-    book   books @relation(fields: [bookId], references: [id])
+    user   users @relation(fields: [userId], references: [id])
     bookId Int
+    book   books @relation(fields: [bookId], references: [id])
 }
 
 model history {
     id     Int   @id @default(autoincrement())
-    user   users @relation(fields: [userId], references: [id])
     userId Int
-    book   books @relation(fields: [bookId], references: [id])
+    user   users @relation(fields: [userId], references: [id])
     bookId Int
+    book   books @relation(fields: [bookId], references: [id])
 }
