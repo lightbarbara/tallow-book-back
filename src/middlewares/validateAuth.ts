@@ -35,7 +35,7 @@ export function validateAuth(req: Request, res: Response, next: NextFunction) {
                 return res.status(httpStatus.UNAUTHORIZED).send({ message: err })
             }
 
-            const user = await authRepositories.findUserById(decoded.id)
+            const user = await authRepositories.findUserById(decoded.userId)
 
             if (!user) {
                 return res.status(httpStatus.UNAUTHORIZED).send({ message: 'Invalid token'})
