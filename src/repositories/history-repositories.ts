@@ -13,6 +13,9 @@ async function getHistory(userId: number) {
     return await prisma.history.findMany({
         where: {
             userId
+        },
+        select: {
+            book: true
         }
     })
 }
