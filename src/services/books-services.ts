@@ -1,7 +1,7 @@
 import booksRepositories from "../repositories/books-repositories"
 
-async function createBook(name: string, image: string, pages: number, year: number, description: string, edition: number, price: number, userId: number) {
-    const book = await booksRepositories.createBook(name, image, pages, year, description, edition, price, userId)
+async function createBook(name: string, author: string, image: string, pages: number, year: number, description: string, edition: number, price: number, userId: number) {
+    const book = await booksRepositories.createBook(name, author, image, pages, year, description, edition, price, userId)
 
     return book
 }

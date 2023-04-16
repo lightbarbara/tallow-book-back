@@ -15,6 +15,8 @@ export async function signUp(req: Request, res: Response) {
         if (err.name === 'registeredEmail') {
             return res.status(httpStatus.CONFLICT).send({ message: 'This email is already in use' })
         }
+
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
     }
 
@@ -33,6 +35,8 @@ export async function signIn(req: Request, res: Response) {
         if (err.name === 'invalidUser') {
             return res.status(httpStatus.UNAUTHORIZED).send({ message: 'Invalid credentials' })
         }
+
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }

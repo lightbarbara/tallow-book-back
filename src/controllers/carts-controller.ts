@@ -33,6 +33,7 @@ export async function getCart(req: Request, res: Response) {
 
     } catch (err) {
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }
@@ -50,6 +51,7 @@ export async function deleteBookInCart(req: Request, res: Response) {
 
     } catch (err) {
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }
@@ -67,6 +69,7 @@ export async function finishCart(req: Request, res: Response) {
 
     } catch (err) {
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }

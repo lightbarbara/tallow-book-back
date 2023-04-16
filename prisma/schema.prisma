@@ -26,6 +26,7 @@ enum BookStatus {
 model books {
     id          Int         @id @default(autoincrement())
     name        String
+    author      String
     image       String
     pages       Int
     year        Int

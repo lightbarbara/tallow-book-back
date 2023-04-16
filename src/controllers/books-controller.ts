@@ -3,18 +3,19 @@ import httpStatus from "http-status";
 import booksServices from "../services/books-services";
 
 export async function createBook(req: Request, res: Response) {
-    const { name, image, pages, year, description, edition, price } = req.body
+    const { name, author, image, pages, year, description, edition, price } = req.body
 
     const user = res.locals.user
 
     try {
 
-        const book = await booksServices.createBook(name, image, pages, year, description, edition, price, user.id)
+        const book = await booksServices.createBook(name, author, image, Number(pages), Number(year), description, Number(edition), Number(price), user.id)
 
         return res.status(httpStatus.CREATED).send(book)
 
     } catch (err) {
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }
@@ -32,6 +33,7 @@ export async function getOtherBooks(req: Request, res: Response) {
 
     } catch (err) {
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }
@@ -48,6 +50,7 @@ export async function getMyBooks(req: Request, res: Response) {
 
     } catch (err) {
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }
@@ -70,6 +73,7 @@ export async function deleteBook(req: Request, res: Response) {
             return res.status(httpStatus.UNAUTHORIZED).send({ message: err })
         }
 
+        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }
