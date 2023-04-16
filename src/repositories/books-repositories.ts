@@ -18,13 +18,18 @@ async function createBook(name: string, image: string, pages: number, year: numb
 }
 
 async function getAllBooks() {
-    return await prisma.books.findMany({})
+    return await prisma.books.findMany({
+        where: {
+            status: BookStatus.AVAILABLE
+        }
+    })
 }
 
 async function getMyBooks(userId: number) {
     return await prisma.books.findMany({
         where: {
-            userId
+            userId,
+            status: BookStatus.AVAILABLE
         }
     })
 }
