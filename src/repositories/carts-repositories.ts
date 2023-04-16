@@ -17,10 +17,19 @@ async function addToCart(userId: number, bookId: number) {
     })
 }
 
-async function deleteBookInCart(bookId: number) {
+async function findIdByBookAndUser(userId: number, bookId: number) {
+    return await prisma.booksCart.findFirst({
+        where: {
+            userId,
+            bookId
+        }
+    })
+}
+
+async function deleteBookInCart(id: number) {
     return await prisma.booksCart.delete({
         where: {
-            id: bookId
+            id
         }
     })
 }
@@ -36,6 +45,7 @@ async function deleteBooksByUser(userId: number) {
 const cartsRepositories = {
     findBooksInCart,
     addToCart,
+    findIdByBookAndUser,
     deleteBookInCart,
     deleteBooksByUser
 }

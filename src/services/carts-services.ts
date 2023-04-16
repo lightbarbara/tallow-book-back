@@ -23,8 +23,12 @@ async function getCart(userId: number) {
     return books
 }
 
-async function deleteBookInCart(bookId: number) {
-    const deletedBook = await cartsRepositories.deleteBookInCart(bookId)
+async function deleteBookInCart(userId: number, bookId: number) {
+    const bookToBeDeleted = await cartsRepositories.findIdByBookAndUser(userId, bookId)
+
+    const deletedBook = await cartsRepositories.deleteBookInCart(bookToBeDeleted.id)
+
+    await booksRepositories.takeOffBookFromCart(bookId)
 
     return deletedBook
 }

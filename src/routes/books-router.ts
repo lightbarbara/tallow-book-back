@@ -9,6 +9,6 @@ const booksRouter = Router()
 booksRouter.post('/register-book', validateAuth, validateSchema(BookSchema), createBook)
 booksRouter.get('/books', validateAuth, getOtherBooks)
 booksRouter.get('/my-books', validateAuth, getMyBooks)
-booksRouter.delete('/book', validateAuth, deleteBook)
+booksRouter.delete('/book/:id', validateAuth, deleteBook)
 
 export default booksRouter

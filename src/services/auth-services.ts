@@ -7,7 +7,7 @@ async function signUp(name: string, email: string, avatar: string, password: str
     const emailRegistered = await authRepositories.findUserByEmail(email)
 
     if (emailRegistered) {
-        throw { name: 'registeredEmail' }
+        throw { message: 'registeredEmail' }
     }
 
     const encryptedPassword = await bcrypt.hash(password, 12)
@@ -23,13 +23,13 @@ async function signIn(email: string, password: string): Promise<{ user: users, t
     const user = await authRepositories.findUserByEmail(email)
 
     if (!user) {
-        throw { name: 'invalidUser' }
+        throw { message: 'invalidUser' }
     }
 
     const isPasswordRight = await bcrypt.compare(password, user.password)
 
     if (!isPasswordRight) {
-        throw { name: 'invalidUser' }
+        throw { message: 'invalidUser' }
     }
 
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET)

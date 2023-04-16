@@ -11,12 +11,12 @@ export async function signUp(req: Request, res: Response) {
         return res.status(httpStatus.CREATED).send(user)
 
     } catch (err) {
+        console.log(err)
 
-        if (err.name === 'registeredEmail') {
+        if (err.message === 'registeredEmail') {
             return res.status(httpStatus.CONFLICT).send({ message: 'This email is already in use' })
         }
 
-        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
     }
 
@@ -31,12 +31,12 @@ export async function signIn(req: Request, res: Response) {
         return res.status(httpStatus.OK).send(user)
 
     } catch (err) {
+        console.log(err)
 
-        if (err.name === 'invalidUser') {
+        if (err.message === 'invalidUser') {
             return res.status(httpStatus.UNAUTHORIZED).send({ message: 'Invalid credentials' })
         }
 
-        console.log(err)
         return res.status(httpStatus.BAD_REQUEST).send({ message: err })
 
     }

@@ -41,11 +41,13 @@ export async function getCart(req: Request, res: Response) {
 }
 
 export async function deleteBookInCart(req: Request, res: Response) {
-    const bookId = req.query.params
+    const user = res.locals.user
+
+    const bookId = req.params.id
 
     try {
 
-        const book = await cartsServices.deleteBookInCart(Number(bookId))
+        const book = await cartsServices.deleteBookInCart(Number(user.id), Number(bookId))
 
         return res.status(httpStatus.NO_CONTENT).send(book)
 

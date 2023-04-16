@@ -24,7 +24,11 @@ async function deleteBook(bookId: number, userId: number) {
     const bookToBeDeleted = await booksRepositories.findBookById(bookId)
 
     if (bookToBeDeleted.userId !== userId) {
-        throw { name: 'deleteNotAllowed' }
+        throw { message: 'deleteNotAllowed' }
+    }
+
+    if (bookToBeDeleted.status === 'UNAVAILABLE') {
+        throw { message: 'bookWasBought' }
     }
 
     const book = await booksRepositories.deleteBook(bookId)

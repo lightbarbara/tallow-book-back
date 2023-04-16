@@ -59,22 +59,26 @@ export async function getMyBooks(req: Request, res: Response) {
 export async function deleteBook(req: Request, res: Response) {
     const user = res.locals.user
 
-    const bookId = req.query.params
+    const bookId = req.params.id
 
     try {
 
-        const book = booksServices.deleteBook(Number(bookId), user.id)
+        const book = await booksServices.deleteBook(Number(bookId), user.id)
 
         return res.status(httpStatus.NO_CONTENT).send(book)
 
     } catch (err) {
+        console.log(err)
 
-        if (err.name === 'deleteNotAllowed') {
-            return res.status(httpStatus.UNAUTHORIZED).send({ message: err })
+        if (err.message === 'deleteNotAllowed') {
+            return res.status(httpStatus.UNAUTHORIZED).send({ message: "You can't delete someone else's book" })
         }
 
-        console.log(err)
-        return res.status(httpStatus.BAD_REQUEST).send({ message: err })
+        if (err.message === 'bookWasBought') {
+            return res.status(httpStatus.UNAUTHORIZED).send({ message: 'Book was bought' })
+        }
+
+        return res.status(httpStatus.BAD_REQUEST).send({ message: err.message })
 
     }
 }

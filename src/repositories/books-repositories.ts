@@ -61,13 +61,25 @@ async function putBookOnCart(bookId: number) {
     })
 }
 
+async function takeOffBookFromCart(bookId: number) {
+    return await prisma.books.update({
+        where: {
+            id: bookId
+        },
+        data: {
+            status: BookStatus.AVAILABLE
+        }
+    })
+}
+
 const booksRepositories = {
     createBook,
     getAllBooks,
     getMyBooks,
     findBookById,
     deleteBook,
-    putBookOnCart
+    putBookOnCart,
+    takeOffBookFromCart
 }
 
 export default booksRepositories
