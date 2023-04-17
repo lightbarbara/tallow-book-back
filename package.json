@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "dotenv -e .env.test jest",
+    "test": "dotenv -e .env.test npm run prisma:migrate:deploy & dotenv -e .env.test jest",
     "start": "npm run prisma:migrate:deploy && node dist/src/server.js",
     "build": "tsc",
     "dev": "nodemon src/server.ts",
     "prisma:migrate:dev": "prisma migrate dev",
-    "prisma:migrate:deploy": "dotenv -e .env.test prisma migrate deploy"
+    "prisma:migrate:deploy": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
